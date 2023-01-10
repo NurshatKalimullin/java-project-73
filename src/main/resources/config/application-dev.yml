@@ -10,7 +10,7 @@ spring:
   datasource:
     username: ""
     password: ""
-    url: "jdbc:h2:./hexletBlog"
+    url: "jdbc:h2:./taskManager"
 
   jpa:
     show-sql: true
