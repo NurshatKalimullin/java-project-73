@@ -5,7 +5,10 @@ base-url: /api
 
 spring:
   application:
-    name: hexletBlog
+    name: taskManager
+
+  profiles:
+    active: dev
 
   liquibase:
     enabled: true

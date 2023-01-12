@@ -8,12 +8,14 @@ springdoc:
 
 spring:
   datasource:
+    driverClassName: org.h2.Driver
     username: ""
     password: ""
     url: "jdbc:h2:./taskManager"
 
   jpa:
     show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
 
   # Настраиваем консоль Н2
   # Это позволит нам открыть её в браузере по указанному пути
@@ -24,6 +26,16 @@ spring:
       path: /h2console/
       settings:
         web-allow-others: true
+
+  security:
+    user:
+      name: "kk"
+      password: "password"
+    security:
+      basic:
+        enabled: true
+        authorize-mode: NONE
+
 
 logging:
   level:

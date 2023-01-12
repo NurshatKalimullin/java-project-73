@@ -45,4 +45,8 @@ public class User {
     @Temporal(TIMESTAMP)
     private Date createdAt; //дата создания (регистрации) пользователя
 
+    public User(final Long id) {
+        this.id = id;
+    }
+
 }
