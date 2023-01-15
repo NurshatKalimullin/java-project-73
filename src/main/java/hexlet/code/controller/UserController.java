@@ -48,9 +48,10 @@ public class UserController {
 
 
     // Content используется для укзания содержимого ответа
+    @Operation(summary = "Get all user")
     @ApiResponses(@ApiResponse(responseCode = "200", content =
-            // Указываем тип содержимого ответа
-    @Content(schema = @Schema(implementation = User.class))
+    @Content(schema = @Schema(implementation = User.class)),
+            description = "User created"
     ))
     @GetMapping
     public List<User> getAll() {
@@ -59,19 +60,27 @@ public class UserController {
                 .toList();
     }
 
-    @ApiResponses(@ApiResponse(responseCode = "200"))
+    @Operation(summary = "Retrieve user by user id")
+    @ApiResponses(@ApiResponse(responseCode = "200", content =
+    @Content(schema = @Schema(implementation = User.class))
+    ))
     @GetMapping(ID)
     public User getUserById(@PathVariable final Long id) {
         return userRepository.findById(id).get();
     }
 
 
+    @Operation(summary = "Update user by id")
     @PutMapping(ID)
     @PreAuthorize(ONLY_OWNER_BY_ID)
+    @ApiResponses(@ApiResponse(responseCode = "200", content =
+    @Content(schema = @Schema(implementation = User.class))
+    ))
     public User update(@PathVariable final long id, @RequestBody @Valid final UserDto dto) {
         return userService.updateUser(id, dto);
     }
 
+    @Operation(summary = "Delete user by id")
     @DeleteMapping(ID)
     @PreAuthorize(ONLY_OWNER_BY_ID)
     public void delete(@PathVariable final long id) {

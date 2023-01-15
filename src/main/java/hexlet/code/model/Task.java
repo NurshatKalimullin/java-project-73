@@ -13,6 +13,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import java.util.Date;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.TemporalType.TIMESTAMP;
@@ -58,6 +59,9 @@ public class Task {
     @CreationTimestamp
     @Temporal(TIMESTAMP)
     private Date createdAt;
+
+    @ManyToMany
+    private Set<Label> labels;
 
     public Task(final Long id) {
         this.id = id;

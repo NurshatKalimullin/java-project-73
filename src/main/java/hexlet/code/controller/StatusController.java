@@ -49,7 +49,7 @@ public class StatusController {
 
     @ApiResponses(@ApiResponse(responseCode = "200", content =
             // Указываем тип содержимого ответа
-    @Content(schema = @Schema(implementation = User.class))
+    @Content(schema = @Schema(implementation = Status.class))
     ))
     @GetMapping
     public List<Status> getAll() {

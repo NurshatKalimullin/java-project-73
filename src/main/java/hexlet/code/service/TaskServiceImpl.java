@@ -2,6 +2,7 @@ package hexlet.code.service;
 
 import hexlet.code.dto.StatusDto;
 import hexlet.code.dto.TaskDto;
+import hexlet.code.model.Label;
 import hexlet.code.model.Status;
 import hexlet.code.model.Task;
 import hexlet.code.model.User;
@@ -9,7 +10,10 @@ import hexlet.code.repository.TaskRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -38,6 +42,7 @@ public class TaskServiceImpl implements TaskService{
         task.setTaskStatus(newTask.getTaskStatus());
         task.setName(newTask.getName());
         task.setDescription(newTask.getDescription());
+        task.setLabels(newTask.getLabels());
     }
 
     private Task fromDto(final TaskDto dto) {
@@ -48,13 +53,19 @@ public class TaskServiceImpl implements TaskService{
         final Status status = Optional.ofNullable(dto.getTaskStatusId())
                 .map(Status::new)
                 .orElse(null);
+        final Set<Label> labels = Optional.ofNullable(dto.getLabelIds())
+                .orElse(Set.of())
+                .stream()
+                .filter(Objects::nonNull)
+                .map(Label::new)
+                .collect(Collectors.toSet());
 
 
         return Task.builder()
                 .author(author)
                 .executor(executor)
                 .taskStatus(status)
-                //.labels(labels)
+                .labels(labels)
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .build();
