@@ -71,7 +71,6 @@ public class StatusController {
         return statusService.updateStatus(id, dto);
     }
 
-    //Authorization is turned off for dev purpose
     @DeleteMapping(ID)
     public void delete(@PathVariable final long id) {
         statusRepository.deleteById(id);

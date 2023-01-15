@@ -10,4 +10,5 @@ public interface StatusService {
     Status createNewStatus(StatusDto statusDto);
 
     Status updateStatus(long id, StatusDto dto);
+
 }

@@ -33,7 +33,7 @@ public class Status {
     @Temporal(TIMESTAMP)
     private Date createdAt;
 
-//    public Status(String name) {
-//        this.name = name;
-//    }
+    public Status(final Long id) {
+        this.id = id;
+    }
 }

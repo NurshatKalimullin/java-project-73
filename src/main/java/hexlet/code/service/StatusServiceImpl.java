@@ -6,6 +6,7 @@ import hexlet.code.model.Status;
 import hexlet.code.model.User;
 import hexlet.code.repository.StatusRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,4 +32,5 @@ public class StatusServiceImpl implements StatusService {
         statusToUpdate.setName(statusDto.getName());
         return statusRepository.save(statusToUpdate);
     }
+
 }
