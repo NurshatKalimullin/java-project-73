@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static final List<GrantedAuthority> DEFAULT_AUTHORITIES = List.of(new SimpleGrantedAuthority("USER"));
 
 
+
     //Note: Сейчас разрешены:
     // - GET('/api/users')
     // - POST('/api/users')
@@ -63,12 +64,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.jwtHelper = jwtHelper;
     }
 
+
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder);
     }
-
 
 
     @Override
@@ -85,8 +86,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 jwtHelper
         );
 
+        //for dev purpose I turned off request filtering and permitted all requests
         http.csrf().disable()
                 .authorizeRequests()
+                //.antMatchers("/**").permitAll();
                 .requestMatchers(publicUrls).permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -96,5 +99,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().disable()
                 .httpBasic().disable()
                 .logout().disable();
+
+        http.headers().frameOptions().disable();
     }
 }

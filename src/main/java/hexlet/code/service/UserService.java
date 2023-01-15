@@ -6,4 +6,10 @@ import hexlet.code.model.User;
 public interface UserService {
 
     User createNewUser(UserDto userDto);
+
+    User updateUser(long id, UserDto dto);
+
+    String getCurrentUserName();
+
+    User getCurrentUser();
 }
