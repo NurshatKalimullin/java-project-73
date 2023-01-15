@@ -34,16 +34,17 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(final HttpServletRequest request,
                                                 final HttpServletResponse response) throws AuthenticationException {
+        System.out.println("Attempt authentication1");
         final LoginDto loginData = getLoginData(request);
         System.out.println("Login data is extracted!");
-        System.out.println(loginData.getUsername());
+        System.out.println(loginData.getEmail());
         System.out.println(loginData.getPassword());
         final var authRequest = new UsernamePasswordAuthenticationToken(
-                loginData.getUsername(),
+                loginData.getEmail(),
                 loginData.getPassword()
         );
         setDetails(request, authRequest);
-        System.out.println("Attempt authentication");
+        System.out.println("Attempt authentication2");
         return getAuthenticationManager().authenticate(authRequest);
     }
 

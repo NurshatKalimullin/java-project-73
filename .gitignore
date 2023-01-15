@@ -128,3 +128,9 @@ taskManager.trace.db
 
 # Generated code
 src/main/generated/
+
+
+#frontend
+node/
+frontend/build/
+frontend/node_modules/
