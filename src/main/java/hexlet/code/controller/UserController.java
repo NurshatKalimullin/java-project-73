@@ -66,16 +66,14 @@ public class UserController {
     }
 
 
-    //Authorization is turned off for dev purpose
     @PutMapping(ID)
-    //@PreAuthorize(ONLY_OWNER_BY_ID)
+    @PreAuthorize(ONLY_OWNER_BY_ID)
     public User update(@PathVariable final long id, @RequestBody @Valid final UserDto dto) {
         return userService.updateUser(id, dto);
     }
 
-    //Authorization is turned off for dev purpose
     @DeleteMapping(ID)
-    //@PreAuthorize(ONLY_OWNER_BY_ID)
+    @PreAuthorize(ONLY_OWNER_BY_ID)
     public void delete(@PathVariable final long id) {
         userRepository.deleteById(id);
     }
