@@ -3,8 +3,10 @@ package hexlet.code.controller;
 import com.querydsl.core.types.Predicate;
 import hexlet.code.dto.StatusDto;
 import hexlet.code.dto.TaskDto;
+import hexlet.code.model.Label;
 import hexlet.code.model.Status;
 import hexlet.code.model.Task;
+import hexlet.code.model.User;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -50,8 +52,7 @@ public class TaskController {
     }
 
 
-    @Operation(summary = "Get all tasks if no filtration is set."
-            + " Else Retrieves all the elements that match the conditions defined by the specified predicate ")
+    @Operation(summary = "Get all tasks by Predicate")
     @ApiResponses(@ApiResponse(responseCode = "200", content =
     @Content (schema =
     @Schema (implementation = Task.class))
@@ -63,20 +64,32 @@ public class TaskController {
 
     @Operation(summary = "Get a task by id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Task was found")
-    })
+            @ApiResponse(responseCode = "200", description = "Task is found", content =
+            @Content(schema = @Schema(implementation = Task.class))),
+            @ApiResponse(responseCode = "404", description = "Task with this id is not found")})
     @GetMapping(ID)
     public Task getTask(@PathVariable long id) {
         return taskRepository.findById(id).get();
     }
 
 
+    @Operation(summary = "Update task by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Task is updated", content =
+            @Content(schema = @Schema(implementation = Task.class))),
+            @ApiResponse(responseCode = "404", description = "Task with this id is not found")})
     @PutMapping(ID)
     @PreAuthorize(ONLY_TASK_OWNER)
     public Task update(@PathVariable final long id, @RequestBody @Valid final TaskDto dto) {
         return taskService.updateTask(id, dto);
     }
 
+
+    @Operation(summary = "Delete task by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Task is deleted", content =
+            @Content(schema = @Schema(implementation = Task.class))),
+            @ApiResponse(responseCode = "404", description = "Task with this id is not found")})
     @DeleteMapping(ID)
     @PreAuthorize(ONLY_TASK_OWNER)
     public void delete(@PathVariable final long id) {

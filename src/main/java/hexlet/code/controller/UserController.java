@@ -50,15 +50,14 @@ public class UserController {
     // Content используется для укзания содержимого ответа
     @Operation(summary = "Get all user")
     @ApiResponses(@ApiResponse(responseCode = "200", content =
-    @Content(schema = @Schema(implementation = User.class)),
-            description = "User created"
-    ))
+    @Content(schema = @Schema(implementation = User.class))))
     @GetMapping
     public List<User> getAll() {
         return userRepository.findAll()
                 .stream()
                 .toList();
     }
+
 
     @Operation(summary = "Retrieve user by user id")
     @ApiResponses(@ApiResponse(responseCode = "200", content =
@@ -80,7 +79,9 @@ public class UserController {
         return userService.updateUser(id, dto);
     }
 
+
     @Operation(summary = "Delete user by id")
+    @ApiResponses(@ApiResponse(responseCode = "200", description = "User is deleted"))
     @DeleteMapping(ID)
     @PreAuthorize(ONLY_OWNER_BY_ID)
     public void delete(@PathVariable final long id) {

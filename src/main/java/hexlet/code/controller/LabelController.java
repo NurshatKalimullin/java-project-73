@@ -1,9 +1,7 @@
 package hexlet.code.controller;
 
 import hexlet.code.dto.LabelDto;
-import hexlet.code.dto.StatusDto;
 import hexlet.code.model.Label;
-import hexlet.code.model.Status;
 import hexlet.code.model.User;
 import hexlet.code.repository.LabelRepository;
 import hexlet.code.service.LabelService;
@@ -45,6 +43,7 @@ public class LabelController {
     }
 
 
+    @Operation(summary = "Get all labels")
     @ApiResponses(@ApiResponse(responseCode = "200", content =
     @Content(schema = @Schema(implementation = Label.class)),
             description = "Get all labels"
@@ -57,20 +56,33 @@ public class LabelController {
     }
 
 
-    @ApiResponses(@ApiResponse(responseCode = "200", description = "Retrieve label by its id"))
+    @Operation(summary = "Retrieve label by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Label is found", content =
+            @Content(schema = @Schema(implementation = Label.class))),
+            @ApiResponse(responseCode = "404", description = "Label with this id is not found")})
     @GetMapping(ID)
-    public Label getUserById(@PathVariable final Long id) {
+    public Label getLabelById(@PathVariable final Long id) {
         return labelRepository.findById(id).get();
     }
 
 
-    @ApiResponse(responseCode = "200", description = "Update label by its id")
+    @Operation(summary = "Update label by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Label is updated", content =
+            @Content(schema = @Schema(implementation = Label.class))),
+            @ApiResponse(responseCode = "404", description = "Label with this id is not found")})
     @PutMapping(ID)
     public Label update(@PathVariable final long id, @RequestBody @Valid final LabelDto dto) {
         return labelService.updateLabel(id, dto);
     }
 
-    @ApiResponse(responseCode = "200", description = "Delete label by its id")
+
+    @Operation(summary = "Delete label by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Label is deleted", content =
+            @Content(schema = @Schema(implementation = Label.class))),
+            @ApiResponse(responseCode = "404", description = "Label with this id is not found")})
     @DeleteMapping(ID)
     public void delete(@PathVariable final long id) {
         labelRepository.deleteById(id);

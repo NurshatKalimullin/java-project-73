@@ -1,9 +1,8 @@
 package hexlet.code.controller;
 
 import hexlet.code.dto.StatusDto;
-import hexlet.code.dto.UserDto;
+import hexlet.code.model.Label;
 import hexlet.code.model.Status;
-import hexlet.code.model.User;
 import hexlet.code.repository.StatusRepository;
 import hexlet.code.service.StatusService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,7 +11,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -47,9 +45,10 @@ public class StatusController {
     }
 
 
+    @Operation(summary = "Get all statuses")
     @ApiResponses(@ApiResponse(responseCode = "200", content =
-            // Указываем тип содержимого ответа
-    @Content(schema = @Schema(implementation = Status.class))
+    @Content(schema = @Schema(implementation = Status.class)),
+            description = "Get all statuses"
     ))
     @GetMapping
     public List<Status> getAll() {
@@ -59,18 +58,32 @@ public class StatusController {
     }
 
 
-    @ApiResponses(@ApiResponse(responseCode = "200"))
+    @Operation(summary = "Retrieve status by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Status is found", content =
+            @Content(schema = @Schema(implementation = Status.class))),
+            @ApiResponse(responseCode = "404", description = "Status with this id is not found")})
     @GetMapping(ID)
-    public Status getUserById(@PathVariable final Long id) {
+    public Status getStatusById(@PathVariable final Long id) {
         return statusRepository.findById(id).get();
     }
 
 
+    @Operation(summary = "Update status by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Status is updated", content =
+            @Content(schema = @Schema(implementation = Status.class))),
+            @ApiResponse(responseCode = "404", description = "Status with this id is not found")})
     @PutMapping(ID)
     public Status update(@PathVariable final long id, @RequestBody @Valid final StatusDto dto) {
         return statusService.updateStatus(id, dto);
     }
 
+    @Operation(summary = "Delete status by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Status is deleted", content =
+            @Content(schema = @Schema(implementation = Status.class))),
+            @ApiResponse(responseCode = "404", description = "Status with this id is not found")})
     @DeleteMapping(ID)
     public void delete(@PathVariable final long id) {
         statusRepository.deleteById(id);
