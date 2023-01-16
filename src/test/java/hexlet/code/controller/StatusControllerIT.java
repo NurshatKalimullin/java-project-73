@@ -19,15 +19,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 
 import static hexlet.code.config.SpringConfigForIT.TEST_PROFILE;
-import static hexlet.code.controller.StatusController.STATUS_CONTROLLER_PATH;
 import static hexlet.code.controller.StatusController.ID;
+import static hexlet.code.controller.StatusController.STATUS_CONTROLLER_PATH;
 import static hexlet.code.utils.TestUtils.*;
-import static hexlet.code.utils.TestUtils.TEST_USERNAME;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -76,6 +74,35 @@ public class StatusControllerIT {
         assertTrue(statusRepository.existsById(status.getId()));
         assertEquals(expectedStatus.getId(), status.getId());
         assertEquals(expectedStatus.getName(), status.getName());
+    }
+
+
+    @Test
+    public void testGetStatusById() throws Exception {
+        utils.regDefaultUser();
+
+        final var statusDto = new StatusDto("new");
+
+        final var postRequest = post(STATUS_CONTROLLER_PATH)
+                .content(asJson(statusDto))
+                .contentType(APPLICATION_JSON);
+
+        utils.perform(postRequest, TEST_USERNAME)
+                .andExpect(status().isCreated())
+                .andReturn()
+                .getResponse();
+
+
+        final var response = utils.perform(get(STATUS_CONTROLLER_PATH + ID,
+                                statusRepository.findAll().get(0).getId()),
+                        TEST_USERNAME)
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse();
+        final Status status = fromJson(response.getContentAsString(), new TypeReference<>() {
+        });
+
+        assertEquals(statusDto.getName(), status.getName());
     }
 
 

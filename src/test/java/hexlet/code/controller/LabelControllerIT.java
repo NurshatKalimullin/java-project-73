@@ -79,6 +79,34 @@ public class LabelControllerIT {
 
 
     @Test
+    public void testGetLabelById() throws Exception {
+        utils.regDefaultUser();
+
+        final var labelDto = new LabelDto("bug");
+
+        final var postRequest = post(LABEL_CONTROLLER_PATH)
+                .content(asJson(labelDto))
+                .contentType(APPLICATION_JSON);
+
+        utils.perform(postRequest, TEST_USERNAME)
+                .andExpect(status().isCreated())
+                .andReturn()
+                .getResponse();
+
+        final var response = utils.perform(get(LABEL_CONTROLLER_PATH + ID,
+                        labelRepository.findAll().get(0).getId()),
+                        TEST_USERNAME)
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse();
+        final Label label = fromJson(response.getContentAsString(), new TypeReference<>() {
+        });
+
+        assertEquals(labelDto.getName(), label.getName());
+    }
+
+
+    @Test
     public void testCreatedLabelFails() throws Exception {
         utils.regDefaultUser();
 

@@ -124,6 +124,66 @@ public class TaskControllerIT {
 
 
     @Test
+    public void testGetTaskById() throws Exception {
+        utils.regDefaultUser();
+        final User expectedUser = userRepository.findAll().get(0);
+
+        final var statusDto = new StatusDto("new");
+
+        final var statusPostRequest = post(STATUS_CONTROLLER_PATH)
+                .content(asJson(statusDto))
+                .contentType(APPLICATION_JSON);
+        final Status status = fromJson((utils.perform(statusPostRequest, TEST_USERNAME)
+                .andExpect(status().isCreated())
+                .andReturn()
+                .getResponse())
+                .getContentAsString(), new TypeReference<>(){});
+
+
+        final var labelDto = new LabelDto("bug");
+
+        final var labelPostRequest = post(LABEL_CONTROLLER_PATH)
+                .content(asJson(labelDto))
+                .contentType(APPLICATION_JSON);
+        final Label label = fromJson((utils.perform(labelPostRequest, TEST_USERNAME)
+                .andExpect(status().isCreated())
+                .andReturn()
+                .getResponse())
+                .getContentAsString(), new TypeReference<>(){});
+        Set<Long> labels = new HashSet<Long>();
+        labels.add(label.getId());
+
+
+        final var taskDto = new TaskDto("task", "description", status.getId(), expectedUser.getId(), labels);
+
+        final var taskPostRequest = post(TASK_CONTROLLER_PATH)
+                .content(asJson(taskDto))
+                .contentType(APPLICATION_JSON);
+        utils.perform(taskPostRequest, TEST_USERNAME)
+                .andExpect(status().isCreated())
+                .andReturn()
+                .getResponse();
+
+
+        final var response = utils.perform(get(TASK_CONTROLLER_PATH + ID,
+                                taskRepository.findAll().get(0).getId()),
+                        TEST_USERNAME)
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse();
+
+        final Task task = fromJson(response.getContentAsString(), new TypeReference<>() {
+        });
+
+        assertEquals(task.getName(), taskDto.getName());
+        assertEquals(task.getDescription(), taskDto.getDescription());
+        assertEquals(task.getExecutor().getId(), taskDto.getExecutorId());
+        assertEquals(task.getTaskStatus().getId(), taskDto.getTaskStatusId());
+        assertEquals(task.getLabels().stream().map(Label::getId).collect(Collectors.toSet()), taskDto.getLabelIds());
+    }
+
+
+    @Test
     public void testUpdateTask() throws Exception {
         utils.regDefaultUser();
         final User expectedUser = userRepository.findAll().get(0);
