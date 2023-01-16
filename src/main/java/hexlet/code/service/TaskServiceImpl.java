@@ -1,6 +1,5 @@
 package hexlet.code.service;
 
-import hexlet.code.dto.StatusDto;
 import hexlet.code.dto.TaskDto;
 import hexlet.code.model.Label;
 import hexlet.code.model.Status;
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class TaskServiceImpl implements TaskService{
+public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
     private final UserService userService;

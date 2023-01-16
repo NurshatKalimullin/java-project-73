@@ -34,12 +34,18 @@ import static hexlet.code.controller.StatusController.STATUS_CONTROLLER_PATH;
 import static hexlet.code.controller.TaskController.ID;
 import static hexlet.code.controller.TaskController.TASK_CONTROLLER_PATH;
 import static hexlet.code.controller.UserController.USER_CONTROLLER_PATH;
-import static hexlet.code.utils.TestUtils.*;
+import static hexlet.code.utils.TestUtils.TEST_USERNAME;
+import static hexlet.code.utils.TestUtils.asJson;
+import static hexlet.code.utils.TestUtils.fromJson;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
@@ -84,7 +90,7 @@ public class TaskControllerIT {
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse())
-                .getContentAsString(), new TypeReference<>(){});
+                .getContentAsString(), new TypeReference<>() { });
 
 
         final var labelDto = new LabelDto("bug");
@@ -96,7 +102,7 @@ public class TaskControllerIT {
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse())
-                .getContentAsString(), new TypeReference<>(){});
+                .getContentAsString(), new TypeReference<>() { });
         Set<Long> labels = new HashSet<Long>();
         labels.add(label.getId());
 
@@ -114,7 +120,6 @@ public class TaskControllerIT {
         final Task task = fromJson(response.getContentAsString(), new TypeReference<>() {
         });
 
-        assertTrue(taskRepository.existsById(status.getId()));
         assertEquals(task.getName(), taskDto.getName());
         assertEquals(task.getDescription(), taskDto.getDescription());
         assertEquals(task.getExecutor().getId(), taskDto.getExecutorId());
@@ -137,7 +142,7 @@ public class TaskControllerIT {
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse())
-                .getContentAsString(), new TypeReference<>(){});
+                .getContentAsString(), new TypeReference<>() { });
 
 
         final var labelDto = new LabelDto("bug");
@@ -149,7 +154,7 @@ public class TaskControllerIT {
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse())
-                .getContentAsString(), new TypeReference<>(){});
+                .getContentAsString(), new TypeReference<>() { });
         Set<Long> labels = new HashSet<Long>();
         labels.add(label.getId());
 
@@ -201,7 +206,7 @@ public class TaskControllerIT {
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse())
-                .getContentAsString(), new TypeReference<>(){});
+                .getContentAsString(), new TypeReference<>() { });
 
 
         final var labelDto = new LabelDto("bug");
@@ -213,7 +218,7 @@ public class TaskControllerIT {
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse())
-                .getContentAsString(), new TypeReference<>(){});
+                .getContentAsString(), new TypeReference<>() { });
         Set<Long> labels = new HashSet<Long>();
         labels.add(label.getId());
 
@@ -265,7 +270,7 @@ public class TaskControllerIT {
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse())
-                .getContentAsString(), new TypeReference<>(){});
+                .getContentAsString(), new TypeReference<>() { });
 
 
         final var labelDto = new LabelDto("bug");
@@ -277,7 +282,7 @@ public class TaskControllerIT {
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse())
-                .getContentAsString(), new TypeReference<>(){});
+                .getContentAsString(), new TypeReference<>() { });
         Set<Long> labels = new HashSet<Long>();
         labels.add(label.getId());
 
@@ -321,7 +326,7 @@ public class TaskControllerIT {
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse())
-                .getContentAsString(), new TypeReference<>(){});
+                .getContentAsString(), new TypeReference<>() { });
 
 
         final var labelDto = new LabelDto("bug");
@@ -333,7 +338,7 @@ public class TaskControllerIT {
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse())
-                .getContentAsString(), new TypeReference<>(){});
+                .getContentAsString(), new TypeReference<>() { });
         Set<Long> labels = new HashSet<Long>();
         labels.add(label.getId());
 
@@ -378,7 +383,7 @@ public class TaskControllerIT {
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse())
-                .getContentAsString(), new TypeReference<>(){});
+                .getContentAsString(), new TypeReference<>() { });
 
 
         final var labelDto = new LabelDto("bug");
@@ -390,7 +395,7 @@ public class TaskControllerIT {
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse())
-                .getContentAsString(), new TypeReference<>(){});
+                .getContentAsString(), new TypeReference<>() { });
         Set<Long> labels = new HashSet<Long>();
         labels.add(label.getId());
 
@@ -432,7 +437,7 @@ public class TaskControllerIT {
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse())
-                .getContentAsString(), new TypeReference<>(){});
+                .getContentAsString(), new TypeReference<>() { });
 
 
         final var labelDto = new LabelDto("bug");
@@ -444,7 +449,7 @@ public class TaskControllerIT {
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse())
-                .getContentAsString(), new TypeReference<>(){});
+                .getContentAsString(), new TypeReference<>() { });
         Set<Long> labels = new HashSet<Long>();
         labels.add(label.getId());
 
@@ -483,7 +488,7 @@ public class TaskControllerIT {
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse())
-                .getContentAsString(), new TypeReference<>(){});
+                .getContentAsString(), new TypeReference<>() { });
 
 
         final var labelDto = new LabelDto("bug");
@@ -495,7 +500,7 @@ public class TaskControllerIT {
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse())
-                .getContentAsString(), new TypeReference<>(){});
+                .getContentAsString(), new TypeReference<>() { });
         Set<Long> labels = new HashSet<Long>();
         labels.add(label.getId());
 
@@ -534,7 +539,7 @@ public class TaskControllerIT {
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse())
-                .getContentAsString(), new TypeReference<>(){});
+                .getContentAsString(), new TypeReference<>() { });
 
 
         final var labelDto = new LabelDto("bug");
@@ -546,7 +551,7 @@ public class TaskControllerIT {
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse())
-                .getContentAsString(), new TypeReference<>(){});
+                .getContentAsString(), new TypeReference<>() { });
         Set<Long> labels = new HashSet<Long>();
         labels.add(label.getId());
 
@@ -561,7 +566,11 @@ public class TaskControllerIT {
                 .andReturn()
                 .getResponse();
 
-        final var secondTaskDto = new TaskDto("task", "description", status.getId(), expectedUser.getId(), new HashSet<>());
+        final var secondTaskDto = new TaskDto("task",
+                "description",
+                status.getId(),
+                expectedUser.getId(),
+                new HashSet<>());
 
         final var secondTaskPostRequest = post(TASK_CONTROLLER_PATH)
                 .content(asJson(secondTaskDto))

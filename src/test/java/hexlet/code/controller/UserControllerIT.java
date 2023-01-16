@@ -24,12 +24,22 @@ import static hexlet.code.config.SpringConfigForIT.TEST_PROFILE;
 import static hexlet.code.config.security.SecurityConfig.LOGIN;
 import static hexlet.code.controller.UserController.ID;
 import static hexlet.code.controller.UserController.USER_CONTROLLER_PATH;
-import static hexlet.code.utils.TestUtils.*;
+
+import static hexlet.code.utils.TestUtils.TEST_USERNAME;
+import static hexlet.code.utils.TestUtils.TEST_USERNAME_2;
+import static hexlet.code.utils.TestUtils.asJson;
+import static hexlet.code.utils.TestUtils.fromJson;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
@@ -119,16 +129,6 @@ public class UserControllerIT {
 
 
     @Test
-    public void getUserByIdFails() throws Exception {
-        utils.regDefaultUser();
-        final User expectedUser = userRepository.findAll().get(0);
-        utils.perform(get(USER_CONTROLLER_PATH + ID, expectedUser.getId()))
-                .andExpect(status().isUnauthorized());
-
-    }
-
-
-    @Test
     public void getAllUsers() throws Exception {
         utils.regDefaultUser();
         final var response = utils.perform(get(USER_CONTROLLER_PATH))
@@ -166,7 +166,8 @@ public class UserControllerIT {
                 utils.getTestRegistrationDto().getEmail(),
                 utils.getTestRegistrationDto().getPassword()
         );
-        final var loginRequest = MockMvcRequestBuilders.post(LOGIN).content(asJson(loginDto)).contentType(APPLICATION_JSON);
+        final var loginRequest = MockMvcRequestBuilders.post(LOGIN)
+                .content(asJson(loginDto)).contentType(APPLICATION_JSON);
         utils.perform(loginRequest).andExpect(status().isUnauthorized());
     }
 

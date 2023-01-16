@@ -1,12 +1,9 @@
 package hexlet.code.service;
 
 import hexlet.code.dto.StatusDto;
-import hexlet.code.dto.UserDto;
 import hexlet.code.model.Status;
-import hexlet.code.model.User;
 import hexlet.code.repository.StatusRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

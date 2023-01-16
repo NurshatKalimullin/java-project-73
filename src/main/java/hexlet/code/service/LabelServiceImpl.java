@@ -2,7 +2,6 @@ package hexlet.code.service;
 
 import hexlet.code.dto.LabelDto;
 import hexlet.code.model.Label;
-import hexlet.code.model.Status;
 import hexlet.code.repository.LabelRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @AllArgsConstructor
-public class LabelServiceImpl implements LabelService{
+public class LabelServiceImpl implements LabelService {
 
     private final LabelRepository labelRepository;
     @Override

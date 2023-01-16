@@ -1,12 +1,8 @@
 package hexlet.code.filter;
 
 import hexlet.code.component.JWTHelper;
-import javassist.tools.web.BadHttpRequest;
-import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -17,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
+import static hexlet.code.config.security.SecurityConfig.DEFAULT_AUTHORITIES;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY;
-import static hexlet.code.config.security.SecurityConfig.DEFAULT_AUTHORITIES;
 
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
