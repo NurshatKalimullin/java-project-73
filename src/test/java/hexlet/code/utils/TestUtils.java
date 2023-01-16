@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.component.JWTHelper;
 import hexlet.code.dto.UserDto;
 import hexlet.code.model.User;
+import hexlet.code.repository.StatusRepository;
 import hexlet.code.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -43,8 +44,8 @@ public class TestUtils {
     @Autowired
     private UserRepository userRepository;
 
-//    @Autowired
-//    private PostCommentRepository postCommentRepository;
+    @Autowired
+    private StatusRepository statusRepository;
 //
 //    @Autowired
 //    private PostRepository postRepository;
@@ -54,7 +55,7 @@ public class TestUtils {
 
     public void tearDown() {
 //        postCommentRepository.deleteAll();
-//        postRepository.deleteAll();
+        statusRepository.deleteAll();
         userRepository.deleteAll();
     }
 
