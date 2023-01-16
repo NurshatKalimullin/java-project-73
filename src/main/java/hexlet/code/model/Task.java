@@ -42,6 +42,7 @@ public class Task {
     //    taskStatus - обязательное. Связано с сущностью статуса
     @ManyToOne
     @JoinColumn(name = "task_status_id")
+    @NotNull
     private Status taskStatus;
 
     //    author - обязательное. Создатель задачи, связан с сущностью пользователя

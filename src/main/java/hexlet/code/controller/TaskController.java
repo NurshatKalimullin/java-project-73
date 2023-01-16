@@ -1,12 +1,8 @@
 package hexlet.code.controller;
 
 import com.querydsl.core.types.Predicate;
-import hexlet.code.dto.StatusDto;
 import hexlet.code.dto.TaskDto;
-import hexlet.code.model.Label;
-import hexlet.code.model.Status;
 import hexlet.code.model.Task;
-import hexlet.code.model.User;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,7 +11,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

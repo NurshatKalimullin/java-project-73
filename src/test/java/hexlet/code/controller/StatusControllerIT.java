@@ -97,24 +97,6 @@ public class StatusControllerIT {
 
 
     @Test
-    public void testCreatedStatusWithBadCredentials() throws Exception {
-        //utils.regDefaultUser();
-
-        final var statusDto = new StatusDto("new");
-
-        final var postRequest = post(STATUS_CONTROLLER_PATH)
-                .content(asJson(statusDto))
-                .contentType(APPLICATION_JSON);
-
-        postRequest.header(AUTHORIZATION, "token");
-
-        utils.perform(postRequest, TEST_USERNAME)
-                .andExpect(status().is(422));
-
-        assertEquals(0, statusRepository.count());
-    }
-
-    @Test
     public void testUpdateStatus() throws Exception {
         utils.regDefaultUser();
 

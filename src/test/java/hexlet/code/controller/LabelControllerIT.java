@@ -164,7 +164,7 @@ public class LabelControllerIT {
                 .andReturn()
                 .getResponse();
 
-        utils.perform(delete(LABEL_CONTROLLER_PATH + StatusController.ID,
+        utils.perform(delete(LABEL_CONTROLLER_PATH + ID,
                                 labelRepository.findAll().get(0).getId()),
                         TEST_USERNAME)
                 .andExpect(status().isOk());
