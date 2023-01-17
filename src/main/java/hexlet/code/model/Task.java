@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Temporal;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.ManyToMany;
 import javax.persistence.JoinColumn;
@@ -44,7 +43,6 @@ public class Task {
     private String name;
 
     //    description - необязательное. Описание задачи, может быть любым
-    @Lob
     private String description;
 
     //    taskStatus - обязательное. Связано с сущностью статуса
