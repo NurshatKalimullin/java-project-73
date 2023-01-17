@@ -27,6 +27,7 @@ public class RollbarConfig {
 
         return RollbarSpringConfigBuilder.withAccessToken(accessToken)
                 .environment(activeProfile)
+                .enabled(activeProfile == "prod")
                 .build();
     }
 }

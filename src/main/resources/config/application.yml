@@ -7,6 +7,9 @@ spring:
   application:
     name: taskManager
 
+  profiles:
+    active: prod
+
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/changelog-master.xml
