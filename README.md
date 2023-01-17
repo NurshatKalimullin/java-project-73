@@ -9,3 +9,4 @@ Task Manager is a small application for task management. It allows to create a t
 
 To explore the application simply follow the link https://task-manager-gvra.onrender.com/
 
+Open API documentation https://task-manager-gvra.onrender.com/swagger-ui.html
