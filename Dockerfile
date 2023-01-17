@@ -1,8 +1,8 @@
 FROM gradle:7.4.0-jdk17
 
-WORKDIR /java-project-73
+WORKDIR /
 
-COPY /java-project-73
+COPY / .
 
 RUN gradle installDist
 
