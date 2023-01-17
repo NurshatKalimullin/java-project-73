@@ -25,7 +25,6 @@ public class RollbarConfig {
 
     private Config getRollbarConfigs(String accessToken) {
 
-        // Reference ConfigBuilder.java for all the properties you can set for Rollbar
         return RollbarSpringConfigBuilder.withAccessToken(accessToken)
                 .environment(activeProfile)
                 .build();
