@@ -1,9 +1,11 @@
 package hexlet.code.controller;
 
+import com.rollbar.notifier.Rollbar;
 import hexlet.code.dto.UserDto;
 import hexlet.code.model.User;
 import hexlet.code.repository.UserRepository;
 import hexlet.code.service.UserService;
+import io.micrometer.core.util.internal.logging.InternalLogger;
 import io.swagger.v3.oas.annotations.Operation;
 
 
@@ -38,6 +40,8 @@ public class UserController {
     public static final String USER_CONTROLLER_PATH = "/users";
     public static final String ID = "/{id}";
 
+    private Rollbar rollbar;
+
 
     private static final String ONLY_OWNER_BY_ID = """
             @userRepository.findById(#id).get().getEmail() == authentication.getName()
@@ -61,6 +65,7 @@ public class UserController {
     @Content(schema = @Schema(implementation = User.class))))
     @GetMapping
     public List<User> getAll() {
+        rollbar.debug("Here is some debug message");
         return userRepository.findAll()
                 .stream()
                 .toList();
