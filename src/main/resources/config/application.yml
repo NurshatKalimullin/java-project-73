@@ -8,7 +8,7 @@ spring:
     name: taskManager
 
   profiles:
-    active: dev
+    active: prod
 
   liquibase:
     enabled: false
