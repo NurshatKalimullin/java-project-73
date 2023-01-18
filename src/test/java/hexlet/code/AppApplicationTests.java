@@ -6,13 +6,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class AppApplicationTests {
 
-	@Test
-	void testInit() {
-		assertThat(true).isTrue();
-	}
 
-//    @Test
-//    void contextLoads() {
-//    }
+    @Test
+    void testInit() {
+        assertThat(true).isTrue();
+    }
 
 }
