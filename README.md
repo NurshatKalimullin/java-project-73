@@ -7,6 +7,6 @@
 
 Task Manager is a small application for task management. It allows to create a task, assign it and change its statuses. To get full access you must go through onboarding and authentication processes first.
 
-To explore the application simply follow the link https://task-manager-gvra.onrender.com/
+To explore the application simply follow the link https://task-manager-gvra.onrender.com/users
 
 Open API documentation https://task-manager-gvra.onrender.com/swagger-ui.html
