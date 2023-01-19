@@ -1,5 +1,6 @@
 plugins {
 	id 'java'
+	id 'application'
 	id 'checkstyle'
 	id 'jacoco'
 	id 'org.springframework.boot' version '2.5.6'
@@ -166,5 +167,5 @@ processResources.dependsOn assembleFrontend
 
 
 // Таска нужная heroku для деплоя
-//task stage(dependsOn: [clean, installDist])
-//installDist.mustRunAfter clean
+task stage(dependsOn: [clean, installDist])
+installDist.mustRunAfter clean
